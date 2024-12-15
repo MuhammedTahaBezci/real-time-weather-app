@@ -1,91 +1,121 @@
-Weather App
-Weather App, kullanıcının konum bilgilerini alarak mevcut hava durumunu gösteren basit bir Flutter uygulamasıdır. Bu proje, kullanıcının şehir bazlı hava durumu verilerini API üzerinden çekerek görsel olarak listeler.
+# Weather App
 
-Proje Dosya Yapısı
+Weather App is a simple Flutter application that retrieves the user's location and displays the current weather. This project fetches city-based weather data through an API and presents it visually in a list format.
 
+---
+
+## Project Structure
+
+```
 WEATHER/
-│
+|
 ├── android/
 ├── build/
 ├── lib/
 │   ├── models/
-│   │   └── weather_model.dart         # Hava durumu modeli (Veri formatı)
+│   │   └── weather_model.dart         # Weather data model (Data format)
 │   │
 │   ├── screens/
-│   │   └── home_page.dart             # Ana ekran tasarımı ve listeleme
+│   │   └── home_page.dart             # Main screen design and listing
 │   │
 │   ├── services/
-│   │   └── weather_services.dart      # Konum alımı ve API istekleri
+│   │   └── weather_services.dart      # Location fetching and API requests
 │   │
-│   └── main.dart                      # Uygulamanın başlangıç noktası
+│   └── main.dart                      # Application entry point
 │
 ├── test/
 │   └── widget_test.dart
 │
-├── pubspec.yaml                       # Bağımlılıklar ve proje tanımı
+├── pubspec.yaml                       # Dependencies and project definition
 ├── assets/
 │   └── screenshots/
 │       └── screenshot_1.png
-├── README.md                          # Proje açıklaması
+├── README.md                          # Project description
 └── weather.iml
+```
 
+---
 
-Kurulum ve Çalıştırma
+## Setup and Run
 
-1. Gereksinimler
-Flutter SDK (>=3.0.0)
-Android Studio veya Visual Studio Code
-Emülatör veya Fiziksel Cihaz
+### Requirements
+- Flutter SDK (>=3.0.0)
+- Android Studio or Visual Studio Code
+- Emulator or Physical Device
 
-2. Proje Bağımlılıklarını Kurun
-Aşağıdaki komut ile gerekli bağımlılıkları kurun:   
+### Install Dependencies
+Run the following command to install the required dependencies:
+```bash
 flutter pub get
+```
 
-3. Proje Bağımlılıkları
-Proje pubspec.yaml dosyasında aşağıdaki paketleri kullanır:
+### Project Dependencies
+The project uses the following packages as defined in `pubspec.yaml`:
+```yaml
 dependencies:
   flutter:
     sdk: flutter
-  dio: ^5.0.0          # HTTP istekleri için kullanılır
-  geolocator: ^9.0.0   # Kullanıcı konumu almak için
-  geocoding: ^3.0.0    # Konum bilgisini şehre dönüştürmek için
+  dio: ^5.0.0          # For making HTTP requests
+  geolocator: ^9.0.0   # For obtaining user location
+  geocoding: ^3.0.0    # For converting location coordinates to city names
+```
 
-4. API Anahtarı
-Proje, CollectAPI üzerinden hava durumu verilerini çeker. Kendi API anahtarınızı almak için:
+### API Key
+The project fetches weather data from [CollectAPI](https://collectapi.com). To use this service, follow these steps:
 
-4.1. CollectAPI'ye kaydolun.
-4.2. Weather API için anahtar oluşturun.
-4.3. Anahtarı weather_services.dart dosyasındaki authorization başlığında güncelleyin:
+1. Register on CollectAPI.
+2. Generate an API key for the Weather API.
+3. Update the API key in the `weather_services.dart` file under the `authorization` header:
+
+```dart
 const Map<String, dynamic> headers = {
   'authorization': "apikey YOUR_API_KEY",
   'content-type': 'application/json',
 };
+```
 
+---
 
-Kod Açıklamaları
+## Code Overview
 
-1. Ana Giriş Noktası (main.dart)
-Uygulama HomePage widget'ını çalıştırır.
+### 1. Main Entry Point (`main.dart`)
+The application runs the `HomePage` widget as its entry point.
+```dart
 void main() {
   runApp(const Home());
 }
+```
 
-2. Hava Durumu Servisi (weather_services.dart)
-2.1.Kullanıcı konumunu alır ve API'den hava durumu verilerini çeker.
-2.2 Konum servisleri için geolocator kullanılır.
+### 2. Weather Service (`weather_services.dart`)
+
+#### Features:
+- Fetches user location using the `geolocator` package:
+```dart
 final Position position = await Geolocator.getCurrentPosition();
-2.3.API isteği:
+```
+- Retrieves weather data via API:
+```dart
 final response = await dio.get(url, options: Options(headers: headers));
+```
 
-3. Ana Ekran (home_page.dart)
-3.1.Hava durumu verilerini liste şeklinde gösterir.
-3.2.Her bir hava durumu öğesi için:
-    Görsel ikon
-    Gün, sıcaklık, nem bilgileri gösterilir.
+### 3. Main Screen (`home_page.dart`)
 
-Çalıştırma
+#### Features:
+- Displays weather data in a list format.
+- Each weather item includes:
+  - Weather icon
+  - Day, temperature, and humidity information.
 
-Uygulamayı aşağıdaki komutla çalıştırabilirsiniz:
+---
+
+## Running the Application
+To run the application, execute the following command:
+```bash
 flutter run
+```
 
-![screenshot_1](assets/screenshots/screenshot_1.png)
+---
+
+## Screenshot
+![Screenshot](assets/screenshots/screenshot_1.png)
+
