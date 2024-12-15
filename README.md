@@ -117,5 +117,5 @@ flutter run
 ---
 
 ## Screenshot
-![Screenshot](assets/screenshots/screenshot_1.png)
+![Screenshot](assets/screenshot_1.png)
 
